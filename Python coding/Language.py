@@ -1,13 +1,13 @@
 DICTIONARY = {
-    "en": {
-        "wordList": "./words.txt",
-        "msgLanguageChoice": "Please choose your language, [en] for English and [no] for Norwegian",
-        "msgChoice": "Choose a letter ",
-        "msgChosen": "You've already guessed the letter!",
+    "Law": {
+        "wordList": "./Laws.txt",
+        "msgLanguageChoice": "Please choose, [Law] for Law number practice and [LawsM] for UX laws meaning",
+        "msgChoice": "Choose a number ",
+        "msgChosen": "You've already guessed the number!",
         "msgGameOver": "GAME OVER! \n",
         "msgCorrect": "YOU DID IT! \n",
-        "msgWin": "CONGRATULATIONS! You saved the man! \n",
-        "msgWordWas": "The word was: ",
+        "msgWin": "CONGRATULATIONS! you are correct. \n",
+        "msgWordWas": "The Law was: ",
         "msgCurrentMistakes": "Your mistakes: ",
         "msgPlayAgain": "Do you want to play again? (y/n) ",
         "msgTimes": "Times",
@@ -16,10 +16,10 @@ DICTIONARY = {
         "msgTotalRounds": "You have played a total of ",
         "msgLegalPrompter": "Invalid input! Please only enter alphabetic characters"
     },
-    "no": {
-        "wordList": "./ord.txt",
-        "msgLanguageChoice": "Venligst velg ditt ønskede språk, [en] for Engelsk og [no] for Norsk",
-        "msgChoice": "Velg en bokstav ",
+    "LawsM": {
+        "wordList": "./LawsM.txt",
+        "msgLanguageChoice": "Please choose, [Law] for Law number practice and [LawsM] for UX laws meaning",
+        "msgChoice": "Choose a number ",
         "msgChosen": "Du har allerede valgt!",
         "msgGameOver": "GAME OVER! \n",
         "msgCorrect": "Du gjorde det! \n",
