@@ -1,6 +1,6 @@
 DICTIONARY = {
     "en": {
-        "wordList": "./words.txt",
+        "wordList": "./Laws.txt",
         "msgLanguageChoice": "Please choose your language, [en] for English and [no] for Norwegian",
         "msgChoice": "Choose a letter ",
         "msgChosen": "You've already guessed the letter!",
@@ -17,7 +17,7 @@ DICTIONARY = {
         "msgLegalPrompter": "Invalid input! Please only enter alphabetic characters"
     },
     "no": {
-        "wordList": "./ord.txt",
+        "wordList": "./LawsM.txt",
         "msgLanguageChoice": "Venligst velg ditt ønskede språk, [en] for Engelsk og [no] for Norsk",
         "msgChoice": "Velg en bokstav ",
         "msgChosen": "Du har allerede valgt!",
