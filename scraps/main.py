@@ -1,4 +1,5 @@
 # === imports ===
+import random
 
 # from question_table import questions
 # from utils.score_tracker import update_score, display_score
@@ -9,6 +10,7 @@
 
 # === load_questions() ===
 # - load, and shuffle the question list.
+
 
 
 
