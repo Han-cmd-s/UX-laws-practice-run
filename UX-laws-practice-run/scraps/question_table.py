@@ -1,9 +1,0 @@
-questions = [
-    {
-        "question": "Which UX law states that users preffer interfaces similar to ones they already use?",
-        "answer": "Jakob's Law",
-        "Options": ["Fitt's law", "Hick's Law", "Jakob's Law", "Tesler's Law"],
-        "Explanation": "Jakob's Law states that users spend most of their time on other sites. This means that users prefer your site to work the same way as all the other sites they already know."
-    },
-
-]
