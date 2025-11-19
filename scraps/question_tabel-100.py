@@ -1,6 +1,3 @@
-"""Question bank: 100
-Template/sample bank for topic 100. Edit or expand the `questions` list below.
-"""
 
 questions = [
     {

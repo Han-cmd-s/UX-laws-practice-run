@@ -1,6 +1,4 @@
-"""Question bank: 104 (converted from previous `question_table.py`).
-Contains UX law questions used as the default bank.
-"""
+
 
 questions = [
     {
