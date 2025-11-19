@@ -1,8 +1,3 @@
-"""Question bank for the quiz. Previously this file contained multiple separate list fragments
-which caused invalid Python syntax when imported. This version merges them into a single
-`questions` list so other modules can import and iterate over it.
-"""
-
 questions = [
     {
         "question": "Which UX law states that users preffer interfaces similar to ones they already use?",
