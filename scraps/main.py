@@ -21,17 +21,53 @@ def load_questions(shuffle=True):
 # - display a question, take user input, check answer and return result.
 def ask_question(question): 
     print("\n" + question["question"])
+
+    # Print multiple-choice options if present (support both 'Options' and 'options')
+    opts = None
+    if "options" in question:
+        opts = question["options"]
+    elif "Options" in question:
+        opts = question["Options"]
+
+    if opts:
+        # Enumerate as A, B, C ...
+        for idx, opt in enumerate(opts):
+            label = chr(ord('A') + idx)
+            print(f"  {label}. {opt}")
+
     user_answer = input("Your answer: ").strip()
 
-    if user_answer.lower() == question['answer'].lower():
+    # Allow answers as full text or as a letter/number corresponding to the option
+    selected = user_answer
+    if opts and len(user_answer) == 1 and user_answer.isalpha():
+        idx = ord(user_answer.upper()) - ord('A')
+        if 0 <= idx < len(opts):
+            selected = opts[idx]
+    elif opts and user_answer.isdigit():
+        idx = int(user_answer) - 1
+        if 0 <= idx < len(opts):
+            selected = opts[idx]
+
+    # Compare normalized answers
+    try:
+        correct = question['answer']
+    except KeyError:
+        correct = question.get('Answer') if 'Answer' in question else ''
+
+    if selected.strip().lower() == str(correct).strip().lower():
         print("Correct!")
+        # Support both 'explanation' and 'Explanation' keys
         if "explanation" in question:
             print(question['explanation'])
+        elif "Explanation" in question:
+            print(question['Explanation'])
         return True
     else:
-        print(f"Incorrect. The correct answer is: {question['answer']}")
+        print(f"Incorrect. The correct answer is: {correct}")
         if "explanation" in question:
             print(question['explanation'])
+        elif "Explanation" in question:
+            print(question['Explanation'])
         return False
 
 
