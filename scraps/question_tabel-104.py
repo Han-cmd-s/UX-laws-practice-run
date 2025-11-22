@@ -1,10 +1,4 @@
-"""Compatibility shim. Older code imported `question_table.questions`.
 
-This module re-exports the default bank `question_tabel-104.py` for backwards compatibility.
-"""
-
-from . import question_tabel_104 as _qt
-questions = getattr(_qt, 'questions', [])
 
 questions = [
     {

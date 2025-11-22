@@ -1,7 +1,10 @@
 # === imports ===
 import random
+import os
+import glob
+import importlib.util
+import sys
 
-from question_table import questions
 # from utils.score_tracker import update_score, display_score
 
 
@@ -10,8 +13,49 @@ from question_table import questions
 
 # === load_questions() ===
 # - load, and shuffle the question list.
-def load_questions(shuffle=True):
-    question_list = questions.copy()
+def find_banks():
+    """Discover available question bank files in the scraps folder.
+
+    Returns a dict mapping bank id (str) -> absolute file path.
+    """
+    folder = os.path.dirname(__file__)
+    pattern = os.path.join(folder, "question_tabel-*.py")
+    banks = {}
+    for path in glob.glob(pattern):
+        name = os.path.basename(path)
+        # expect files like question_tabel-104.py
+        if name.startswith("question_tabel-") and name.endswith('.py'):
+            bank_id = name.replace('question_tabel-', '')[:-3]
+            banks[bank_id] = path
+    return banks
+
+
+def load_bank(bank_id):
+    """Dynamically import a question bank by its id (string).
+
+    Returns the module object or raises FileNotFoundError/ImportError.
+    """
+    banks = find_banks()
+    if bank_id not in banks:
+        raise FileNotFoundError(f"Question bank {bank_id} not found")
+    path = banks[bank_id]
+    mod_name = f"question_tabel_{bank_id}"
+    spec = importlib.util.spec_from_file_location(mod_name, path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_questions(shuffle=True, bank_id='104'):
+    """Load questions from the selected bank (default 104).
+    """
+    try:
+        bank = load_bank(str(bank_id))
+        question_list = list(getattr(bank, 'questions', []))
+    except Exception as e:
+        print(f"Warning: failed to load bank {bank_id}: {e}. Falling back to empty list.")
+        question_list = []
+
     if shuffle:
         random.shuffle(question_list)
     return question_list
@@ -19,7 +63,7 @@ def load_questions(shuffle=True):
 
 # === ask_questions() ===
 # - display a question, take user input, check answer and return result.
-def ask_question(question): 
+def ask_question(question):
     print("\n" + question["question"])
 
     # Print multiple-choice options if present (support both 'Options' and 'options')
@@ -76,7 +120,22 @@ def ask_question(question):
 def run_quiz():
     print("Welcome to the Quiz!")
     score = 0
-    question_list = load_questions()
+    # let the user pick a question bank
+    banks = find_banks()
+    if not banks:
+        print("No question banks found. Exiting.")
+        return
+
+    print("Available banks:")
+    for b in sorted(banks.keys()):
+        default_tag = ' (default)' if b == '104' else ''
+        print(f"  {b}{default_tag}")
+
+    choice = input("Choose a bank id (press Enter for default 104): ").strip()
+    if not choice:
+        choice = '104'
+
+    question_list = load_questions(shuffle=True, bank_id=choice)
 
     for i, question in enumerate(question_list, 1):
         print(f"\nQuestion {i} of {len(question_list)}:")
